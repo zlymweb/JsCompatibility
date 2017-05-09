@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>类继承的模型</title>
+	<style type="text/css">
+		.box {
+			width: 90%;
+			margin: auto;
+			background: #eee;
+			border: 1px #ddd solid;
+			padding: 10px;
+			font-size: 12px;
+		}
+	</style>
+</head>
+<body>
+	<h2><center>类继承的模型</center></h2>
+	<pre class="box">
+	//写出一个类继承的模型，需包含以下实现:
+	a.定义父类和子类，并创建父类和子类的属性和方法
+	b.子类继承父类的属性和方法
+	c.在创建子类对象时，调用父类构造函数
+
+	function f1() {} //父类f1
+		f1.classMethod = function (){} //类的方法
+		f1.prototype.api = function (){} //类原型上的方法（即对象上的方法）
+	function f2(){ //子类f2
+	    f2.apply(this,arguments)  //使用f1的构造函数
+	}
+	f2.prototype = new f1(); //给f2的原型赋值一个f1的对象
+	f2.prototype.constructor = f2;
+	f2.prototype.api = function () {
+	    f2.prototype.api.apply(this,arguments)
+	}
+	var fn = new f2(); 
+	fn.api()
+	</pre>
+	
+</body>
+</html>
