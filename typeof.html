@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>JS中有哪些识别类型的方法</title>
+	<style type="text/css">
+		.box {
+			width: 80%;
+			margin: auto;
+			background: #eee;
+			border: 1px #ddd solid;
+			padding: 10px;
+			font-size: 12px;
+		}
+	</style>
+</head>
+<body>
+	<h2><center>JS中有哪些识别类型的方法？</center></h2>
+	<p>1:typeof
+    识别除了Null以外的标准类型；
+    不能识别Function以外的具体对象类型；</p>
+    <p>2:instanceof
+    识别内置对象类型；
+    不能识别原始类型；
+    可以识别自定义对象类型；</p>
+    <p>3:Object.prototype.toString.call()
+    可以识别标准类型以及内置对象类型；
+    不能识别自定义对象类型；</p>
+    <p>4:constructor
+    识别除了Undefined/Null之外的标准类型；
+    识别内置对象类型；
+    识别自定义对象类型；</p>
+	<pre class="box">
+    //constructor 配合代码
+	function getConstructorName(obj){
+    	return (obj===null||obj===undefined)?obj:(obj.constructor&&obj.constructor.toString().match(/function\s*([^)]*)/)[1]);    
+	}
+	</pre>
+</body>
+</html>
