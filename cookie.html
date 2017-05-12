@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>cookie封装</title>
+</head>
+<body>
+
+	<script>
+		/*cookie存在的问题
+		*1、流量代价(cookie只要满足它的作用域和作用路径，它都会带上cookie信息,所以它会产生很多的流量)
+		*2、安全性问题(cookie因为是明文传递，所以存在一定的安全性问题)
+		*3、大小限制(cookie作为浏览器端的存储，不同的浏览器对cookie的大小不同，一般就3~4K左右)
+		 */
+		//读取Cookie
+		function getCookie(){
+			var cookie = {};
+			var all = document.cookie;
+			if(all === ''){
+				return cookie;
+			}
+			var list = all.split('; ');
+			for (var i = 0; i < list.length; i++) {
+				var item = list[i];
+				var p = item.indexof('=');
+				var name = item.substring(0,p);
+				name = decodeURIComponent(name);
+				var value = item.substring(p + 1);
+				value = decodeURIComponent(value);
+				cookie[name] = value;
+			}
+			return cookie;
+		}
+		//设置/修改cookie
+		function setCookie(name,value,expires,path,domain,secure){
+			var cookie = encodeURIComponent(name) + '=' + encodeURIComponent(value); //对name和value进行解码
+			if(expires) cookie += '; expires=' + expires.toGMTString(); // 有效期
+			if(path) cookie += '; path' + path; //路径
+			if(domain) cookie += '; domain' + domain; //域
+			if(secure) cookie += '; secure' + secure; //安全性
+			document.cookie = cookie;
+		}
+
+		//删除cookie
+		function delCookie(name,value,domain){
+			document.cookie = name + '=' + '; path=' + path + '; domain=' +domain + '; max-age=0'; //把max-age最大有效期改为0即表示删除
+		}
+	</script>
+</body>
+</html>

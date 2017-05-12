@@ -13,10 +13,16 @@
 			padding: 10px;
 			font-size: 12px;
 		}
+       h2+h2{color: red;}
 	</style>
 </head>
 <body>
-	<h2><center>闭包的应用场景有哪些？</center></h2>
+    <select  id =  "sel" >
+<option  value = "1" >1</option >
+<option  value = "2"  selected = "selected" >2</option >
+<option  value = "3" >3</option >
+</select>
+    <h2><center>闭包的应用场景有哪些？</center></h2>
 	<p>1:保存函数执行状态（保存变量不被释放）<br>
     <pre class="box">var oLis = document.getElementsByTagName('li');
 function helloJs(oLis){

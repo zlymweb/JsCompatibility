@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Ajax请求GET方法的封装</title>
+</head>
+<body>
+	<script>
+		function get(url,options,callback){
+			var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");  //创建Ajax对象  兼容IE低版本
+ 			xhr.onreadystatechange (){
+ 				if(xhr.readyState == 4){ //请求完成
+ 					if(xhr.status >= 200 && xhr.status < 300 || xhr.status == 304 ){
+ 						callback(xhr.responseText); //返回成功
+ 					}else{
+ 						alert('请求未成功' + xhr.status)
+ 					}
+ 				}
+ 			}
+ 			var serUrl = (url + '?' + serialize(options));
+ 			xhr.open('get',serUrl);//开启异步请求
+ 			xhr.send(null);
+		}
+		//查询参数序列化
+		function serialize(data) {
+			if(!data) return ''; //没有传入数据返回空
+			var pairs = [],value; //定义一个空数组和变量用来存放接收到的对象属性和属性值
+			for(var name in data){ //遍历对象属性
+				if(!data.hasOwnProperty(name)) continue; //过滤掉继承原型的属性和方法
+				if(typeof data[name] === 'function') continue; // 过滤掉函数方法
+				value = data[name].toString(); //属性值转为字符串
+			name = encodeURIComponent(name);//可把属性名称字符串作为URI 组件进行编码。
+			value = encodeURIComponent(value);//属性值进行URI编码
+			pairs.push(name + '=' + value);//属性名和值放入数组
+			}
+			return pairs.join('&');//将数组中的元素用&分隔开返回成字符串形式
+		}
+	</script>
+</body>
+</html>
